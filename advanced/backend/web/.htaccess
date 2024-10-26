@@ -1,0 +1,6 @@
+RewriteEngine on
+
+# Если запрашиваемый файл или директория не существуют, перенаправляем на index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php
