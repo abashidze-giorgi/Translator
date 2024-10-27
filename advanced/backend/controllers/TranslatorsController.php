@@ -7,6 +7,7 @@ use backend\models\TranslatorsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Connection;
 
 /**
  * TranslatorsController implements the CRUD actions for Translators model.
@@ -62,19 +63,27 @@ class TranslatorsController extends Controller
 
     /**
      * Creates a new Translators model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param Connection $db
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate(Connection $db): Response|string
     {
         $model = new Translators();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $db->createCommand(
+                'INSERT INTO translators (name, email, available_weekdays, available_weekends, language_from_id, language_to_id) 
+            VALUES (:name, :email, :available_weekdays, :available_weekends, :language_from_id, :language_to_id)'
+            )
+                ->bindValue(':name', $model->name)
+                ->bindValue(':email', $model->email)
+                ->bindValue(':available_weekdays', $model->available_weekdays, \PDO::PARAM_BOOL)
+                ->bindValue(':available_weekends', $model->available_weekends, \PDO::PARAM_BOOL)
+                ->bindValue(':language_from_id', $model->language_from_id)
+                ->bindValue(':language_to_id', $model->language_to_id)
+                ->execute();
+
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
