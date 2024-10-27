@@ -34,12 +34,11 @@ class Translators extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'language_from_id', 'language_to_id'], 'required'],
+            [['name', 'email', 'available_weekdays', 'available_weekends', 'language_from_id', 'language_to_id'], 'required'],
             [['available_weekdays', 'available_weekends'], 'boolean'],
             [['language_from_id', 'language_to_id'], 'default', 'value' => null],
             [['language_from_id', 'language_to_id'], 'integer'],
             [['name', 'email'], 'string', 'max' => 255],
-            [['email'], 'unique'],
             [['language_from_id'], 'exist', 'skipOnError' => true, 'targetClass' => Languages::class, 'targetAttribute' => ['language_from_id' => 'id']],
             [['language_to_id'], 'exist', 'skipOnError' => true, 'targetClass' => Languages::class, 'targetAttribute' => ['language_to_id' => 'id']],
         ];
@@ -51,13 +50,13 @@ class Translators extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'email' => 'Email',
-            'available_weekdays' => 'Available Weekdays',
-            'available_weekends' => 'Available Weekends',
-            'language_from_id' => 'Language From ID',
-            'language_to_id' => 'Language To ID',
+            'id' => 'Идентификатор',
+            'name' => 'Имя',
+            'email' => 'Электронная почта',
+            'available_weekdays' => 'Доступен в будние дни',
+            'available_weekends' => 'Доступен в выходные дни',
+            'language_from_id' => 'Язык оригинала',
+            'language_to_id' => 'Язык перевода',
         ];
     }
 

@@ -11,6 +11,9 @@ use backend\models\Translators;
  */
 class TranslatorsSearch extends Translators
 {
+    public $language_from_id;
+    public $language_to_id; 
+
     /**
      * {@inheritdoc}
      */
@@ -20,6 +23,7 @@ class TranslatorsSearch extends Translators
             [['id', 'language_from_id', 'language_to_id'], 'integer'],
             [['name', 'email'], 'safe'],
             [['available_weekdays', 'available_weekends'], 'boolean'],
+            [['language_from_id', 'language_to_id'], 'integer'],
         ];
     }
 
@@ -41,7 +45,7 @@ class TranslatorsSearch extends Translators
      */
     public function search($params)
     {
-        $query = Translators::find();
+        $query = Translators::find()->with('languageFrom', 'languageTo');
 
         // add conditions that should always apply here
 

@@ -17,9 +17,9 @@ class m241026_083716_create_translators_table extends Migration
         $this->createTable(self::TABLE, [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'email' => $this->string()->notNull()->unique(),
-            'available_weekdays' => $this->boolean()->notNull()->defaultValue(false),
-            'available_weekends' => $this->boolean()->notNull()->defaultValue(false),
+            'email' => $this->string()->notNull(),
+            'available_weekdays' => $this->boolean()->notNull(),
+            'available_weekends' => $this->boolean()->notNull(),
             'language_from_id' => $this->integer()->notNull(),
             'language_to_id' => $this->integer()->notNull(),
         ]);
@@ -44,8 +44,6 @@ class m241026_083716_create_translators_table extends Migration
             'language_from_id',
             'languages',
             'id',
-            'CASCADE',
-            'CASCADE'
         );
         $this->addForeignKey(
             'fk-translators-language_to',
@@ -53,8 +51,6 @@ class m241026_083716_create_translators_table extends Migration
             'language_to_id',
             'languages',
             'id',
-            'CASCADE',
-            'CASCADE'
         );
     }
 

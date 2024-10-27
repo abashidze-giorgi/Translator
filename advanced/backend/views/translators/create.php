@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var backend\models\Translators $model */
 
-$this->title = 'Create Translators';
+$this->title = 'Создание переводчика';
 $this->params['breadcrumbs'][] = ['label' => 'Translators', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
