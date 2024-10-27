@@ -83,18 +83,22 @@ class TranslatorsController extends Controller
      * @param Connection $db
      * @return string|\yii\web\Response
      */
+
     public function actionCreate(Connection $db)
     {
         $model = new Translators();
 
         if ($this->request->isPost && $model->load($this->request->post())) {
-            $db->createCommand()->insert('translators', [
-                'name' => $model->name,
-                'email' => $model->email,
-                'available_weekdays' => $model->available_weekdays,
-                'available_weekends' => $model->available_weekends,
-                'language_from_id' => $model->language_from_id,
-                'language_to_id' => $model->language_to_id,
+            $db->createCommand("
+                    INSERT INTO translators (name, email, available_weekdays, available_weekends, language_from_id, language_to_id)
+                    VALUES (:name, :email, :available_weekdays, :available_weekends, :language_from_id, :language_to_id)
+                ", [
+                ':name' => $model->name,
+                ':email' => $model->email,
+                ':available_weekdays' => $model->available_weekdays,
+                ':available_weekends' => $model->available_weekends,
+                ':language_from_id' => $model->language_from_id,
+                ':language_to_id' => $model->language_to_id,
             ])->execute();
 
             return $this->redirect(['index']);

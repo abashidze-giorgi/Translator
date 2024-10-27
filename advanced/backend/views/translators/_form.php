@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
     ) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Создать', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Сброс', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
